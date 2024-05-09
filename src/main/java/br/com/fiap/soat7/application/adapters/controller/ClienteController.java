@@ -1,0 +1,39 @@
+package br.com.fiap.soat7.application.adapters.controller;
+
+import br.com.fiap.soat7.domain.dto.ClienteDTO;
+import br.com.fiap.soat7.domain.model.Cliente;
+import br.com.fiap.soat7.domain.ports.interfaces.ClienteServicePort;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+
+@RestController
+@RequestMapping("/rest/api/v1/clientes")
+public class ClienteController {
+
+
+    private final ClienteServicePort clienteServicePort;
+
+    public ClienteController(ClienteServicePort clienteServicePort) {
+        this.clienteServicePort = clienteServicePort;
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> adicionarClientes(@RequestBody ClienteDTO clienteDTO){
+        Cliente cliente = clienteServicePort.adicionarCliente(clienteDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/{cpf}")
+    public ResponseEntity<Cliente> findCliente(@PathVariable String cpf){
+        Cliente cliente = clienteServicePort.buscarClientePorCpf(cpf);
+        return ResponseEntity.ok().body(cliente);
+    }
+
+}
