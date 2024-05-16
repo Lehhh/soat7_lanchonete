@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "produto")
 @Getter
@@ -15,6 +17,8 @@ public class ProdutoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+
+    private BigDecimal preco;
 
     public ProdutoEntity() {
 
@@ -29,6 +33,6 @@ public class ProdutoEntity {
     }
 
     public Produto toProduto() {
-        return new Produto(this.id, this.nome);
+        return new Produto(this.id, this.nome, this.preco);
     }
 }
