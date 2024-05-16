@@ -23,7 +23,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> adicionarClientes(@RequestBody ClienteDTO clienteDTO){
+    public ResponseEntity<Cliente> adicionarCliente(@RequestBody ClienteDTO clienteDTO){
         Cliente cliente = clienteServicePort.adicionarCliente(clienteDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
