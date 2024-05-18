@@ -11,16 +11,22 @@ public class Produto {
 
     private Long id;
     private String nome;
-
+    private Categoria categoria;
     BigDecimal preco;
+    private String descricao;
+    private String imagem;
+
 
     public Produto() {
 
     }
 
-    public Produto(Long id, String nome, BigDecimal preco) {
+    public Produto(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, String imagem) {
         this.id = id;
         this.nome = nome;
+        this.categoria = categoria;
         this.preco = preco;
+        this.descricao = descricao;
+        this.imagem = imagem;
     }
 }

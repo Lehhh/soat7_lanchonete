@@ -1,11 +1,13 @@
 package br.com.fiap.soat7.infrastructure.adapters.repository;
 
+import br.com.fiap.soat7.domain.model.Categoria;
 import br.com.fiap.soat7.domain.model.Produto;
 import br.com.fiap.soat7.domain.ports.repositories.ProdutoRepositoryPort;
 import br.com.fiap.soat7.infrastructure.adapters.entity.ProdutoEntity;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -61,6 +63,13 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
         }
 
         return produto.get().toProduto();
+    }
+
+    @Override
+    public List<Produto> consultarPorCategoria(Categoria categoria) {
+        return repository.findByCategoria(categoria).stream()
+                .map(ProdutoEntity::toProduto)
+                .toList();
     }
 
 }
