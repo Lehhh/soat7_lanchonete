@@ -2,6 +2,9 @@ package br.com.fiap.soat7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 @SpringBootApplication
 public class FirstTechChallengeApplication {
@@ -10,4 +13,10 @@ public class FirstTechChallengeApplication {
 		SpringApplication.run(FirstTechChallengeApplication.class, args);
 	}
 
+	@Bean
+	public MessageSource messageSource () {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		return messageSource;
+	}
 }
