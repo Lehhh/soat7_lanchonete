@@ -1,5 +1,6 @@
 package br.com.fiap.soat7.domain.model;
 
+import br.com.fiap.soat7.domain.types.Categoria;
 import lombok.Getter;
 import lombok.Setter;
 
