@@ -20,10 +20,9 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody ProdutoDTO dto) throws Exception {
-
-        produtoServicePort.editarProduto(id, dto);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody ProdutoDTO dto) throws Exception {
+        Produto pagamento = produtoServicePort.editarProduto(id,dto);
+        return ResponseEntity.ok(pagamento);
     }
 
     @PostMapping
@@ -31,7 +30,7 @@ public class ProdutoController {
         Produto produto = produtoServicePort.adicionarProduto(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(produto.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(produto);
     }
 
     @DeleteMapping("/{id}")
