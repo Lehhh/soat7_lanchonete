@@ -4,15 +4,20 @@ import br.com.fiap.soat7.domain.dto.ClienteDTO;
 import br.com.fiap.soat7.domain.model.Cliente;
 import br.com.fiap.soat7.domain.ports.interfaces.ClienteServicePort;
 import br.com.fiap.soat7.domain.ports.repositories.ClienteRepositoryPort;
-import org.springframework.stereotype.Component;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-@Component
+@Service
 public class ClienteServiceImpl implements ClienteServicePort {
 
 
     private final ClienteRepositoryPort clienteRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public ClienteServiceImpl(ClienteRepositoryPort clienteRepository) {
         this.clienteRepository = clienteRepository;
@@ -21,13 +26,8 @@ public class ClienteServiceImpl implements ClienteServicePort {
 
     @Override
     public Cliente adicionarCliente(ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente();
-        cliente.setCpf(clienteDTO.getCpf());
-        cliente.setNome(clienteDTO.getNome());
-        cliente.setEmail(clienteDTO.getEmail());
-
-        Cliente clienteSalvo = this.clienteRepository.save(cliente);
-        return clienteSalvo;
+        Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
+        return this.clienteRepository.save(cliente);
     }
 
     @Override
@@ -39,4 +39,5 @@ public class ClienteServiceImpl implements ClienteServicePort {
         }
         return cliente;
     }
+
 }
