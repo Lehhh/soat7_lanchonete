@@ -1,8 +1,9 @@
 package br.com.fiap.soat7.domain.ports.repositories;
 
-import br.com.fiap.soat7.domain.dto.ProdutoDTO;
-import br.com.fiap.soat7.domain.model.Cliente;
+import br.com.fiap.soat7.domain.model.Categoria;
 import br.com.fiap.soat7.domain.model.Produto;
+
+import java.util.List;
 
 public interface ProdutoRepositoryPort {
 
@@ -13,4 +14,6 @@ public interface ProdutoRepositoryPort {
     void atualizar (Long id, Produto produto) throws Exception;
 
     Produto buscarPeloId(Long id) throws Exception;
+
+    List<Produto> consultarPorCategoria(Categoria categoria);
 }

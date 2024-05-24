@@ -1,5 +1,7 @@
 package br.com.fiap.soat7.domain.dto;
 
+import br.com.fiap.soat7.domain.model.Categoria;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +13,16 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProdutoDTO {
 
+    @JsonIgnore
+    private Long id;
+
     private String nome;
 
-    private BigDecimal preco;
+    private Categoria categoria;
+
+    BigDecimal preco;
+
+    private String descricao;
+
+    private String imagem;
 }

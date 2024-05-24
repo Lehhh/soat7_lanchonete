@@ -1,12 +1,15 @@
 package br.com.fiap.soat7.domain.adapters.services;
 
 import br.com.fiap.soat7.domain.dto.ProdutoDTO;
+import br.com.fiap.soat7.domain.model.Categoria;
 import br.com.fiap.soat7.domain.model.Produto;
 import br.com.fiap.soat7.domain.ports.interfaces.ProdutoServicePort;
 import br.com.fiap.soat7.domain.ports.repositories.ProdutoRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoServicePort {
@@ -40,4 +43,8 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
         produtoRepositoryPort.delete(id);
     }
 
+    @Override
+    public List<Produto> consultarPorCategoria(Categoria categoria) {
+        return produtoRepositoryPort.consultarPorCategoria(categoria);
+    }
 }
