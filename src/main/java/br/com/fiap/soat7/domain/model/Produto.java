@@ -12,10 +12,9 @@ public class Produto {
     private Long id;
     private String nome;
     private Categoria categoria;
-    BigDecimal preco;
+    private BigDecimal preco;
     private String descricao;
     private String imagem;
-
 
     public Produto() {
 

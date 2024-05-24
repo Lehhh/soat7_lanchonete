@@ -10,7 +10,7 @@ public interface ProdutoServicePort {
 
     Produto adicionarProduto (ProdutoDTO cliente);
 
-    void editarProduto (Long id, ProdutoDTO produtoDTO) throws Exception;
+    Produto editarProduto (Long id, ProdutoDTO produtoDTO) throws Exception;
 
     void excluir (Long id) throws Exception;
 
