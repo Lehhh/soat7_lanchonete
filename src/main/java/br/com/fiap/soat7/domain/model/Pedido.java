@@ -1,11 +1,11 @@
 package br.com.fiap.soat7.domain.model;
 
 import br.com.fiap.soat7.domain.types.StatusPedido;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -14,18 +14,21 @@ public class Pedido {
 
     private Long id;
     private String cpf;
-    private LocalDate data;
-    private LocalTime hora;
+    @Schema(type = "string", pattern = "dd/MM/yyyy HH:mm:ss")
+    private Date dataCadastro;
     private StatusPedido status;
-    private List<Produto> produtoList;
+    private List<Long> idProdutoList;
+    private String observacao;
 
-    public Pedido(Long id, String cpf, LocalDate data, LocalTime hora, StatusPedido status, List<Produto> produtoList) {
-        this.id = id;
-        this.cpf = cpf;
-        this.data = data;
-        this.hora = hora;
-        this.status = status;
-        this.produtoList = produtoList;
+    public Pedido() {
     }
 
+    public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<Long> idProdutoList, String observacao) {
+        this.id = id;
+        this.cpf = cpf;
+        this.dataCadastro = dataCadastro;
+        this.status = status;
+        this.idProdutoList = idProdutoList;
+        this.observacao = observacao;
+    }
 }

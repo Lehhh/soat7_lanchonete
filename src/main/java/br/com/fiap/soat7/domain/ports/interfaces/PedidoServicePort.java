@@ -7,7 +7,7 @@ public interface PedidoServicePort {
 
     Pedido adicionarPedido(PedidoDTO dto);
 
-    Pedido receberPedido(Long id);
+    Pedido marcarComoPronto(Long id) ;
 
     Pedido prepararPedido(Long id);
 

@@ -22,9 +22,9 @@ public class PedidoController {
         return ResponseEntity.ok().body(pedido);
     }
 
-    @PostMapping("/{id}/receber")
-    public ResponseEntity<Pedido> receberPedido(@PathVariable Long id) {
-        Pedido pedido = pedidoServicePort.receberPedido(id);
+    @PostMapping("/{id}/pronto")
+    public ResponseEntity<Pedido> marcarComoPronto(@PathVariable Long id) {
+        Pedido pedido = pedidoServicePort.marcarComoPronto(id);
         return ResponseEntity.ok().body(pedido);
     }
 
