@@ -1,6 +1,6 @@
 package br.com.fiap.soat7.domain.dto;
 
-import br.com.fiap.soat7.domain.model.Categoria;
+import br.com.fiap.soat7.domain.types.Categoria;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

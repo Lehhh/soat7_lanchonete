@@ -1,6 +1,6 @@
 package br.com.fiap.soat7.domain.ports.repositories;
 
-import br.com.fiap.soat7.domain.model.Categoria;
+import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.domain.model.Produto;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package br.com.fiap.soat7.domain.adapters.services;
 
 import br.com.fiap.soat7.domain.dto.ProdutoDTO;
-import br.com.fiap.soat7.domain.model.Categoria;
+import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.domain.model.Produto;
 import br.com.fiap.soat7.domain.ports.interfaces.ProdutoServicePort;
 import br.com.fiap.soat7.domain.ports.repositories.ProdutoRepositoryPort;
