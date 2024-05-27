@@ -30,6 +30,12 @@ export POSTGRES_PASSWORD=root
 export POSTGRES_USER=postgres
 export POSTGRES_DB=tech
 docker compose up -d
+
+### Status containers in docker-compose
+docker-compose ps
+
+### Stop docker-compose
+docker-compose down
 ```
 
 ## Documentação das APIs
