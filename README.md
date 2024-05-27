@@ -8,6 +8,7 @@ Envs:
  - POSTGRES_PASSWORD
  - POSTGRES_USER
  - POSTGRES_DB
+ - APP_ENV
 
 Example: export POSTGRES_USER=techuser
 
