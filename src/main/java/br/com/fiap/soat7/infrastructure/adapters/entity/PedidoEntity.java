@@ -43,6 +43,6 @@ public class PedidoEntity {
     }
 
     public Pedido toPedido () {
-        return new Pedido(this.id, this.cpf, this.dataCadastro, this.status, this.produtoList.stream().map(ProdutoEntity::getId).toList(), this.observacao );
+        return new Pedido(this.id, this.cpf, this.dataCadastro, this.status, this.produtoList, this.observacao );
     }
 }

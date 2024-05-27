@@ -3,7 +3,6 @@ package br.com.fiap.soat7.infrastructure.adapters.repository;
 import br.com.fiap.soat7.domain.model.Cliente;
 import br.com.fiap.soat7.domain.ports.repositories.ClienteRepositoryPort;
 import br.com.fiap.soat7.infrastructure.adapters.entity.ClienteEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

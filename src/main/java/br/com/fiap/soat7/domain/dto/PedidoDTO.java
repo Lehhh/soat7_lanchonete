@@ -22,8 +22,8 @@ public class PedidoDTO {
     private Date dataCadastro;
     @JsonIgnore
     private StatusPedido status;
-    @JsonDeserialize(contentAs = Long.class)
-    private List<Long> idProdutoList;
+    @JsonDeserialize(contentAs = ProdutoDTO.class)
+    private List<ProdutoDTO> idProdutoList;
     @Schema(example = "Observações do seu pedido")
     private String observacao;
 }

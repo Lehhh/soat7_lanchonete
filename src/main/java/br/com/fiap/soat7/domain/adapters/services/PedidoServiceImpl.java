@@ -10,6 +10,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PedidoServiceImpl implements PedidoServicePort {
@@ -51,6 +52,10 @@ public class PedidoServiceImpl implements PedidoServicePort {
         Pedido pedido = this.pedidoRepositoryPort.findById(id);
         pedido.setStatus(StatusPedido.FINALIZADO);
         return this.pedidoRepositoryPort.save(pedido);
+    }
+
+    public List<Pedido> buscarPedidos(){
+        return this.pedidoRepositoryPort.findAll();
     }
 
     private void setupModelMapper(ModelMapper modelMapper) {

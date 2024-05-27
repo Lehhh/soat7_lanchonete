@@ -3,8 +3,11 @@ package br.com.fiap.soat7.infrastructure.adapters.repository;
 import br.com.fiap.soat7.domain.model.Pedido;
 import br.com.fiap.soat7.domain.ports.repositories.PedidoRepositoryPort;
 import br.com.fiap.soat7.infrastructure.adapters.entity.PedidoEntity;
+import br.com.fiap.soat7.infrastructure.adapters.entity.ProdutoEntity;
+
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -30,5 +33,10 @@ public class PedidoRepository implements PedidoRepositoryPort {
             return new NoSuchElementException(errorMessage);
         });
         return pedidoEntity.toPedido();
+    }
+
+    @Override
+    public List<Pedido> findAll(){
+        return this.pedidoRepository.findAll().stream().map(PedidoEntity::toPedido).toList();
     }
 }

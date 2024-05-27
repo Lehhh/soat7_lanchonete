@@ -1,7 +1,6 @@
 package br.com.fiap.soat7.domain.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
