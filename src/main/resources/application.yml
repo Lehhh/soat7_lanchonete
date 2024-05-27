@@ -1,4 +1,12 @@
 spring:
+  profiles:
+    default: ${APP_ENV}
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
   h2:
     console:
       enabled: true
@@ -12,3 +20,17 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: update
+    show-sql: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}

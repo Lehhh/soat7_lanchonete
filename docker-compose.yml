@@ -2,6 +2,7 @@ version: "3"
 services:
   db:
     image: "postgres:12"
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -10,8 +11,11 @@ services:
       - "5432:5432"
   webapp:
     build: .
+    restart: always
+    environment:
+      APP_ENV: ${APP_ENV}
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
     links:
