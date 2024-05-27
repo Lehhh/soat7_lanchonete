@@ -4,6 +4,13 @@
 
 ## Docker Compose command
 ### Start docker-compose
+Envs:
+ - POSTGRES_PASSWORD
+ - POSTGRES_USER
+ - POSTGRES_DB
+
+Example: export POSTGRES_USER=techuser
+
 docker-compose up -d
 
 ### Stop docker-compose
