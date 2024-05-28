@@ -3,15 +3,12 @@ package br.com.fiap.soat7.application.adapters.controller;
 import br.com.fiap.soat7.domain.dto.ClienteDTO;
 import br.com.fiap.soat7.domain.model.Cliente;
 import br.com.fiap.soat7.domain.ports.interfaces.ClienteServicePort;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/v1/clientes")
@@ -36,6 +33,11 @@ public class ClienteController {
     public ResponseEntity<Cliente> buscarClientePorCpf(@PathVariable String cpf){
         Cliente cliente = clienteServicePort.buscarClientePorCpf(cpf);
         return ResponseEntity.ok().body(cliente);
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<Cliente>> buscarTodos(){
+        List<Cliente> clientes = clienteServicePort.buscarTodosOsCliente();
+        return ResponseEntity.ok().body(clientes);
     }
 
 

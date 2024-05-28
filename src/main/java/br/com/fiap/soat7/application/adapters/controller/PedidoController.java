@@ -3,6 +3,9 @@ package br.com.fiap.soat7.application.adapters.controller;
 import br.com.fiap.soat7.domain.dto.PedidoDTO;
 import br.com.fiap.soat7.domain.model.Pedido;
 import br.com.fiap.soat7.domain.ports.interfaces.PedidoServicePort;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +25,9 @@ public class PedidoController {
         return ResponseEntity.ok().body(pedido);
     }
 
-    @PostMapping("/{id}/receber")
-    public ResponseEntity<Pedido> receberPedido(@PathVariable Long id) {
-        Pedido pedido = pedidoServicePort.receberPedido(id);
+    @PostMapping("/{id}/pronto")
+    public ResponseEntity<Pedido> marcarComoPronto(@PathVariable Long id) {
+        Pedido pedido = pedidoServicePort.marcarComoPronto(id);
         return ResponseEntity.ok().body(pedido);
     }
 
@@ -38,6 +41,11 @@ public class PedidoController {
     public ResponseEntity<Pedido> finalizarPedido(@PathVariable Long id) {
         Pedido pedido = pedidoServicePort.finalizarPedido(id);
         return ResponseEntity.ok().body(pedido);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Pedido>> buscarPedidos(){
+        return ResponseEntity.ok().body(pedidoServicePort.buscarPedidos());
     }
 
 }
