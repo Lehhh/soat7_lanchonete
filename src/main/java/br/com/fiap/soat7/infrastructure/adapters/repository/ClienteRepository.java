@@ -5,6 +5,7 @@ import br.com.fiap.soat7.domain.ports.repositories.ClienteRepositoryPort;
 import br.com.fiap.soat7.infrastructure.adapters.entity.ClienteEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class ClienteRepository implements ClienteRepositoryPort {
         if(Objects.isNull(cliente.getId())) {
             clienteEntity = new ClienteEntity(cliente);
         } else {
-            clienteEntity = this.clienteRepository.findById(cliente.getId()).get();
+            clienteEntity = this.clienteRepository.findByCpf(cliente.getCpf()).get();
             clienteEntity.atualizar(cliente);
         }
 
@@ -45,5 +46,9 @@ public class ClienteRepository implements ClienteRepositoryPort {
         throw new RuntimeException("Cliente não existe");
     }
 
+    @Override
+    public List<Cliente> findAll() {
+        return clienteRepository.findAll().stream().map(Cliente::new).toList();
+    }
 }
 

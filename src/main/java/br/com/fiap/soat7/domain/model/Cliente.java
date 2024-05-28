@@ -1,5 +1,6 @@
 package br.com.fiap.soat7.domain.model;
 
+import br.com.fiap.soat7.infrastructure.adapters.entity.ClienteEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,11 @@ public class Cliente {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+    }
+
+    public Cliente(ClienteEntity clienteEntity) {
+        this.nome = clienteEntity.getNome();
+        this.cpf = clienteEntity.getCpf();
+        this.email = clienteEntity.getEmail();
     }
 }

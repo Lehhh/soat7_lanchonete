@@ -9,13 +9,14 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = {"nome", "categoria"})})
 @Getter
 @Setter
 public class ProdutoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceProdutoId")
     private Long id;
+    @Column(unique = true)
     private String nome;
     private BigDecimal preco;
     @Enumerated(EnumType.STRING)

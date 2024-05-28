@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/v1/clientes")
@@ -32,6 +33,11 @@ public class ClienteController {
     public ResponseEntity<Cliente> buscarClientePorCpf(@PathVariable String cpf){
         Cliente cliente = clienteServicePort.buscarClientePorCpf(cpf);
         return ResponseEntity.ok().body(cliente);
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<Cliente>> buscarTodos(){
+        List<Cliente> clientes = clienteServicePort.buscarTodosOsCliente();
+        return ResponseEntity.ok().body(clientes);
     }
 
 
