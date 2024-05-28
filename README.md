@@ -15,7 +15,7 @@ Para a construção da aplicação foram utilizadas as tecnologias:
 
 Para documenação dos fluxos foi criado um board na Miro onde foi desenhado o fluxo de negócio e disponibilizado o dicionário de linguagem ubiqua.
 
-Miro: *COLOCAR O LINK DO MIRO OU TROCAR PELA IMAGEM*
+![Miro](<ddd.jpg>)
 
 ## Inicialização da aplicação
 
@@ -51,7 +51,7 @@ Na própria página do Swagger é disponibilizado exemplos de requests.
 
 - Criação de Clientes
 - Busca de Cliente por CPF
-- CRUD de Produto
+- CRUD de Produto (no método PUT caso não exista o produto é adicionado)
 - Criação e gerenciamento de pedidos
 
 ### Fluxo das APIs para criação de pedido

@@ -29,6 +29,7 @@ public class PedidoServiceImpl implements PedidoServicePort {
     public Pedido adicionarPedido(PedidoDTO pedidoDTO) {
         Pedido pedido = modelMapper.map(pedidoDTO, Pedido.class);
         pedido.setDataCadastro(new Date());
+        this.checkoutMercadoPago(pedido);
         pedido.setStatus(StatusPedido.RECEBIDO);
         return this.pedidoRepositoryPort.save(pedido);
     }
@@ -64,6 +65,10 @@ public class PedidoServiceImpl implements PedidoServicePort {
         modelMapper.typeMap(PedidoDTO.class, Pedido.class).addMappings(mapper ->
                 mapper.map(PedidoDTO::getIdProdutoList, Pedido::setIdProdutoList)
         );
+    }
+
+    private boolean checkoutMercadoPago(Pedido pedido){
+        return true;
     }
 
 }

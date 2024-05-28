@@ -5,6 +5,7 @@ import br.com.fiap.soat7.domain.ports.repositories.PedidoRepositoryPort;
 import br.com.fiap.soat7.infrastructure.adapters.entity.PedidoEntity;
 import br.com.fiap.soat7.infrastructure.adapters.entity.ProdutoEntity;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,8 +23,16 @@ public class PedidoRepository implements PedidoRepositoryPort {
 
     @Override
     public Pedido save(Pedido pedido) {
-        PedidoEntity savedPedidoEntity = this.pedidoRepository.save(new PedidoEntity(pedido));
-        return savedPedidoEntity.toPedido();
+        try {
+            PedidoEntity savedPedidoEntity = this.pedidoRepository.save(new PedidoEntity(pedido));
+            return savedPedidoEntity.toPedido();
+        } catch (Exception e) {
+            String message = "Erro ao salvar os valores informados. Verifique as valores informados.";
+            if (e.getMessage().contains("Referential integrity constraint violation")){
+                message = "Um ou mais produtos da lista não foi encontrado. Verifique os valores informados.";
+            }
+            throw new DataIntegrityViolationException(message);
+        }
     }
 
     @Override
