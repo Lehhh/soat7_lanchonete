@@ -25,13 +25,12 @@ Para inicializar a aplicação, rode o comando:
 
 Para Mac ou Linux:
 ```bash
-export APP_ENV=prod
 export POSTGRES_PASSWORD=root
 export POSTGRES_USER=postgres
 export POSTGRES_DB=tech
 
 ### Start docker-compose
-docker-compose build --no-cache --build-arg APP_ENV=$APP_ENV
+docker-compose build --no-cache
 docker compose up -d
 
 ### Status containers in docker-compose
