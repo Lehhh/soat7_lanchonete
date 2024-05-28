@@ -1,5 +1,6 @@
 package br.com.fiap.soat7.domain.dto;
 
+import br.com.fiap.soat7.domain.model.Produto;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -22,8 +23,8 @@ public class PedidoDTO {
     private Date dataCadastro;
     @JsonIgnore
     private StatusPedido status;
-    @JsonDeserialize(contentAs = ProdutoDTO.class)
-    private List<ProdutoDTO> idProdutoList;
+    @JsonDeserialize(contentAs = Produto.class)
+    private List<Produto> idProdutoList;
     @Schema(example = "Observações do seu pedido")
     private String observacao;
 }
