@@ -1,15 +1,17 @@
 package br.com.fiap.soat7.infrastructure.adapters.repository;
 
-import br.com.fiap.soat7.domain.types.Categoria;
-import br.com.fiap.soat7.domain.model.Produto;
-import br.com.fiap.soat7.domain.ports.repositories.ProdutoRepositoryPort;
-import br.com.fiap.soat7.infrastructure.adapters.entity.ProdutoEntity;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Component;
+
+import br.com.fiap.soat7.domain.model.Produto;
+import br.com.fiap.soat7.domain.ports.repositories.ProdutoRepositoryPort;
+import br.com.fiap.soat7.domain.types.Categoria;
+import br.com.fiap.soat7.infrastructure.adapters.entity.ProdutoEntity;
 
 
 @Component
@@ -26,11 +28,19 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
 
         ProdutoEntity produtoEntity = new ProdutoEntity(produto);
 
-         ProdutoEntity produtoSalvo = this.repository.save(produtoEntity);
-        if(Objects.nonNull(produtoSalvo)) {
-            produto.setId(produtoSalvo.getId());
+        try {
+            ProdutoEntity produtoSalvo = this.repository.save(produtoEntity);
+            if(Objects.nonNull(produtoSalvo)) {
+                produto.setId(produtoSalvo.getId());
+            }
+            return produto;
+        } catch (Exception e) {
+            String message = "Erro ao salvar os valores informados. Verifique as valores enviados.";
+            if (e.getMessage().contains("Unique index or primary key violation")){
+                message = "Nome do produto já existente.";
+            }
+            throw new DataIntegrityViolationException(message);
         }
-        return produto;
     }
 
     @Override
