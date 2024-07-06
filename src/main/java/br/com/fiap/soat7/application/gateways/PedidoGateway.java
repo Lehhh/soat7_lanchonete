@@ -9,11 +9,7 @@ public interface PedidoGateway {
 
     Pedido adicionarPedido(Pedido pedido);
 
-    Pedido marcarComoPronto(Long id) ;
-
-    Pedido prepararPedido(Long id);
-
-    Pedido finalizarPedido(Long id);
-
     List<Pedido> buscarPedidos();
+
+    Pedido buscarPorId(Long id);
 }

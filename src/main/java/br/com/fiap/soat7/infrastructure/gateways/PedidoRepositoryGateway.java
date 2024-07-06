@@ -1,14 +1,17 @@
 package br.com.fiap.soat7.infrastructure.gateways;
 
 import br.com.fiap.soat7.application.gateways.PedidoGateway;
+import br.com.fiap.soat7.domain.entity.Cliente;
 import br.com.fiap.soat7.domain.entity.Pedido;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import br.com.fiap.soat7.infrastructure.persistence.PedidoRepository;
+import br.com.fiap.soat7.infrastructure.persistence.entity.ClienteEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class PedidoRepositoryGateway implements PedidoGateway {
 
@@ -23,30 +26,6 @@ public class PedidoRepositoryGateway implements PedidoGateway {
     }
     @Override
     public Pedido adicionarPedido(Pedido pedido) {
-        pedido.setDataCadastro(new Date());
-        this.checkoutMercadoPago(pedido);
-        pedido.setStatus(StatusPedido.RECEBIDO);
-        return this.repository.save(pedido);
-    }
-
-    @Override
-    public Pedido marcarComoPronto(Long id) {
-        Pedido pedido = this.repository.findById(id);
-        pedido.setStatus(StatusPedido.PRONTO);
-        return this.repository.save(pedido);
-    }
-
-    @Override
-    public Pedido prepararPedido(Long id) {
-        Pedido pedido = this.repository.findById(id);
-        pedido.setStatus(StatusPedido.EM_PREPARACAO);
-        return this.repository.save(pedido);
-    }
-
-    @Override
-    public Pedido finalizarPedido(Long id) {
-        Pedido pedido = this.repository.findById(id);
-        pedido.setStatus(StatusPedido.FINALIZADO);
         return this.repository.save(pedido);
     }
 
@@ -55,8 +34,11 @@ public class PedidoRepositoryGateway implements PedidoGateway {
         return this.repository.findAll();
     }
 
-    private boolean checkoutMercadoPago(Pedido pedido){
-        return true;
+    @Override
+    public Pedido buscarPorId(Long id) {
+     return this.repository.findById(id);
     }
+
+
 
 }
