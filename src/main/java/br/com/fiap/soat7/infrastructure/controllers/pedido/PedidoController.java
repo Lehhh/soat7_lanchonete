@@ -16,61 +16,61 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rest/api/v1/pedidos")
 public class PedidoController {
 
-    private final AdicionarPedidoInterector adicionarPedidoInterector;
-    private final MarcarPedidoProntoInterector marcarPedidoProntoInterector;
+    private final AdicionarPedidoUsecase adicionarPedidoUsecase;
+    private final MarcarPedidoProntoUsecase marcarPedidoProntoUsecase;
 
-    private final PrepararPedidoInterector prepararPedidoInterector;
+    private final PrepararPedidoUsecase prepararPedidoUsecase;
 
-    private final FinalizarPedidoInterector finalizarPedidoInterector;
+    private final FinalizarPedidoUsecase finalizarPedidoUsecase;
 
-    private final BuscarTodosPedidosInterector buscarTodosPedidosInterector;
+    private final BuscarTodosPedidosUsecase buscarTodosPedidosUsecase;
     @Autowired
     private ModelMapper modelMapper;
 
 
-    public PedidoController(AdicionarPedidoInterector adicionarPedidoInterector,
-                            MarcarPedidoProntoInterector marcarPedidoProntoInterector,
-                            PrepararPedidoInterector prepararPedidoInterector,
-                            FinalizarPedidoInterector finalizarPedidoInterector,
-                            BuscarTodosPedidosInterector buscarTodosPedidosInterector) {
-        this.adicionarPedidoInterector = adicionarPedidoInterector;
-        this.marcarPedidoProntoInterector = marcarPedidoProntoInterector;
-        this.prepararPedidoInterector = prepararPedidoInterector;
-        this.finalizarPedidoInterector = finalizarPedidoInterector;
-        this.buscarTodosPedidosInterector = buscarTodosPedidosInterector;
+    public PedidoController(AdicionarPedidoUsecase adicionarPedidoUsecase,
+                            MarcarPedidoProntoUsecase marcarPedidoProntoUsecase,
+                            PrepararPedidoUsecase prepararPedidoUsecase,
+                            FinalizarPedidoUsecase finalizarPedidoUsecase,
+                            BuscarTodosPedidosUsecase buscarTodosPedidosUsecase) {
+        this.adicionarPedidoUsecase = adicionarPedidoUsecase;
+        this.marcarPedidoProntoUsecase = marcarPedidoProntoUsecase;
+        this.prepararPedidoUsecase = prepararPedidoUsecase;
+        this.finalizarPedidoUsecase = finalizarPedidoUsecase;
+        this.buscarTodosPedidosUsecase = buscarTodosPedidosUsecase;
     }
 
     @PostMapping
     public ResponseEntity<PedidoResponse> adicionarPedido(@RequestBody PedidoRequest request) {
         Pedido pedidoRequest = modelMapper.map(request, Pedido.class);
-        PedidoResponse response = modelMapper.map(adicionarPedidoInterector.criarPedido(pedidoRequest), PedidoResponse.class);
+        PedidoResponse response = modelMapper.map(adicionarPedidoUsecase.criarPedido(pedidoRequest), PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/{id}/pronto")
     public ResponseEntity<PedidoResponse> marcarComoPronto(@PathVariable Long id) {
-        Pedido pedido = marcarPedidoProntoInterector.marcarComoPronto(id);
+        Pedido pedido = marcarPedidoProntoUsecase.marcarComoPronto(id);
         PedidoResponse response = modelMapper.map(pedido, PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/{id}/preparar")
     public ResponseEntity<PedidoResponse> prepararPedido(@PathVariable Long id) {
-        Pedido pedido = prepararPedidoInterector.prepararPedido(id);
+        Pedido pedido = prepararPedidoUsecase.prepararPedido(id);
         PedidoResponse response = modelMapper.map(pedido, PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/{id}/finalizar")
     public ResponseEntity<PedidoResponse> finalizarPedido(@PathVariable Long id) {
-        Pedido pedido = finalizarPedidoInterector.finalizarPedido(id);
+        Pedido pedido = finalizarPedidoUsecase.finalizarPedido(id);
         PedidoResponse response = modelMapper.map(pedido, PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Pedido>> buscarPedidos(){
-        return ResponseEntity.ok().body(buscarTodosPedidosInterector.buscarPedidos());
+        return ResponseEntity.ok().body(buscarTodosPedidosUsecase.buscarPedidos());
     }
 
 }

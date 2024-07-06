@@ -2,12 +2,12 @@ package br.com.fiap.soat7.application.usecases.produto;
 
 import br.com.fiap.soat7.application.gateways.ProdutoGateway;
 
-public class ExcluirProdutoInterector {
+public class ExcluirProdutoUsecase {
 
     private ProdutoGateway produtoGateway;
 
 
-    public ExcluirProdutoInterector(ProdutoGateway produtoGateway) {
+    public ExcluirProdutoUsecase(ProdutoGateway produtoGateway) {
         this.produtoGateway = produtoGateway;
     }
 

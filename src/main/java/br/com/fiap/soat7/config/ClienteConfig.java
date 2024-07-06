@@ -1,9 +1,9 @@
 package br.com.fiap.soat7.config;
 
 import br.com.fiap.soat7.application.gateways.ClienteGateway;
-import br.com.fiap.soat7.application.usecases.cliente.AdicionarClienteInterector;
-import br.com.fiap.soat7.application.usecases.cliente.BuscarClientePorCpfInterector;
-import br.com.fiap.soat7.application.usecases.cliente.BuscarTodosClientesInterector;
+import br.com.fiap.soat7.application.usecases.cliente.AdicionarClienteUsecase;
+import br.com.fiap.soat7.application.usecases.cliente.BuscarClientePorCpfUsecase;
+import br.com.fiap.soat7.application.usecases.cliente.BuscarTodosClientesUsecase;
 import br.com.fiap.soat7.infrastructure.gateways.ClienteRepositoryGateway;
 import br.com.fiap.soat7.infrastructure.persistence.IClienteRepository;
 import org.springframework.context.annotation.Bean;
@@ -13,18 +13,18 @@ import org.springframework.context.annotation.Configuration;
 public class ClienteConfig {
 
     @Bean
-    AdicionarClienteInterector criarClienteUseCase(ClienteGateway clienteGateway) {
-        return new AdicionarClienteInterector(clienteGateway);
+    AdicionarClienteUsecase criarClienteUseCase(ClienteGateway clienteGateway) {
+        return new AdicionarClienteUsecase(clienteGateway);
     }
 
     @Bean
-    BuscarClientePorCpfInterector buscarClienteUseCase(ClienteGateway clienteGateway) {
-        return new BuscarClientePorCpfInterector(clienteGateway);
+    BuscarClientePorCpfUsecase buscarClienteUseCase(ClienteGateway clienteGateway) {
+        return new BuscarClientePorCpfUsecase(clienteGateway);
     }
 
     @Bean
-    BuscarTodosClientesInterector buscarTodosClientesUseCase(ClienteGateway clienteGateway) {
-        return new BuscarTodosClientesInterector(clienteGateway);
+    BuscarTodosClientesUsecase buscarTodosClientesUseCase(ClienteGateway clienteGateway) {
+        return new BuscarTodosClientesUsecase(clienteGateway);
     }
 
     @Bean

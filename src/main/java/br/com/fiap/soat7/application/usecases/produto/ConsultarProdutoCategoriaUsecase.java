@@ -6,12 +6,12 @@ import br.com.fiap.soat7.domain.types.Categoria;
 
 import java.util.List;
 
-public class ConsultarProdutoCategoriaInterector {
+public class ConsultarProdutoCategoriaUsecase {
 
     private ProdutoGateway produtoGateway;
 
 
-    public ConsultarProdutoCategoriaInterector(ProdutoGateway produtoGateway) {
+    public ConsultarProdutoCategoriaUsecase(ProdutoGateway produtoGateway) {
         this.produtoGateway = produtoGateway;
     }
 

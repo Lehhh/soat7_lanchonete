@@ -3,17 +3,17 @@ package br.com.fiap.soat7.application.usecases.cliente;
 import br.com.fiap.soat7.application.gateways.ClienteGateway;
 import br.com.fiap.soat7.domain.entity.Cliente;
 
-import java.util.List;
-
-public class BuscarTodosClientesInterector {
+public class AdicionarClienteUsecase {
 
     private ClienteGateway clienteGateway;
 
-    public BuscarTodosClientesInterector(ClienteGateway clienteGateway) {
+
+    public AdicionarClienteUsecase(ClienteGateway clienteGateway) {
         this.clienteGateway = clienteGateway;
     }
 
-    public List<Cliente> buscarTodosClientes() {
-        return clienteGateway.findAll();
+
+    public Cliente criarCliente(Cliente cliente) {
+        return clienteGateway.createCliente(cliente);
     }
 }

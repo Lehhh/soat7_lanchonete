@@ -11,28 +11,28 @@ import org.springframework.context.annotation.Configuration;
 public class PedidoConfig {
 
     @Bean
-    AdicionarPedidoInterector criarPedidoUseCase(PedidoGateway pedidoGateway) {
-        return new AdicionarPedidoInterector(pedidoGateway);
+    AdicionarPedidoUsecase criarPedidoUseCase(PedidoGateway pedidoGateway) {
+        return new AdicionarPedidoUsecase(pedidoGateway);
     }
 
     @Bean
-    BuscarTodosPedidosInterector buscarTodosPedidosUseCase(PedidoGateway pedidoGateway) {
-        return new BuscarTodosPedidosInterector(pedidoGateway);
+    BuscarTodosPedidosUsecase buscarTodosPedidosUseCase(PedidoGateway pedidoGateway) {
+        return new BuscarTodosPedidosUsecase(pedidoGateway);
     }
 
     @Bean
-    FinalizarPedidoInterector finalizarPedidoUseCase(PedidoGateway pedidoGateway) {
-        return new FinalizarPedidoInterector(pedidoGateway);
+    FinalizarPedidoUsecase finalizarPedidoUseCase(PedidoGateway pedidoGateway) {
+        return new FinalizarPedidoUsecase(pedidoGateway);
     }
 
     @Bean
-    MarcarPedidoProntoInterector marcarPedidoProntoUseCase(PedidoGateway pedidoGateway) {
-        return new MarcarPedidoProntoInterector(pedidoGateway);
+    MarcarPedidoProntoUsecase marcarPedidoProntoUseCase(PedidoGateway pedidoGateway) {
+        return new MarcarPedidoProntoUsecase(pedidoGateway);
     }
 
     @Bean
-    PrepararPedidoInterector prepararPedidoUseCase(PedidoGateway pedidoGateway) {
-        return new PrepararPedidoInterector(pedidoGateway);
+    PrepararPedidoUsecase prepararPedidoUseCase(PedidoGateway pedidoGateway) {
+        return new PrepararPedidoUsecase(pedidoGateway);
     }
 
     @Bean

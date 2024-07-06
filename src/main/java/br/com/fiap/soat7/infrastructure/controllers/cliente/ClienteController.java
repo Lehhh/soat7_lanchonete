@@ -1,8 +1,8 @@
 package br.com.fiap.soat7.infrastructure.controllers.cliente;
 
-import br.com.fiap.soat7.application.usecases.cliente.AdicionarClienteInterector;
-import br.com.fiap.soat7.application.usecases.cliente.BuscarTodosClientesInterector;
-import br.com.fiap.soat7.application.usecases.cliente.BuscarClientePorCpfInterector;
+import br.com.fiap.soat7.application.usecases.cliente.AdicionarClienteUsecase;
+import br.com.fiap.soat7.application.usecases.cliente.BuscarTodosClientesUsecase;
+import br.com.fiap.soat7.application.usecases.cliente.BuscarClientePorCpfUsecase;
 import br.com.fiap.soat7.domain.entity.Cliente;
 import br.com.fiap.soat7.infrastructure.controllers.cliente.request.ClienteRequest;
 import br.com.fiap.soat7.infrastructure.controllers.cliente.response.ClienteResponse;
@@ -20,23 +20,23 @@ import java.util.List;
 public class ClienteController {
 
 
-    private final AdicionarClienteInterector adicionarClienteInterector;
-    private final BuscarClientePorCpfInterector buscarClientePorCpfInterector;
-    private final BuscarTodosClientesInterector buscarTodosClientesInterector;
+    private final AdicionarClienteUsecase adicionarClienteUsecase;
+    private final BuscarClientePorCpfUsecase buscarClientePorCpfUsecase;
+    private final BuscarTodosClientesUsecase buscarTodosClientesUsecase;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public ClienteController(AdicionarClienteInterector adicionarClienteInterector, BuscarClientePorCpfInterector buscarClientePorCpfInterector, BuscarTodosClientesInterector buscarTodosClientesInterector) {
-        this.adicionarClienteInterector = adicionarClienteInterector;
-        this.buscarClientePorCpfInterector = buscarClientePorCpfInterector;
-        this.buscarTodosClientesInterector = buscarTodosClientesInterector;
+    public ClienteController(AdicionarClienteUsecase adicionarClienteUsecase, BuscarClientePorCpfUsecase buscarClientePorCpfUsecase, BuscarTodosClientesUsecase buscarTodosClientesUsecase) {
+        this.adicionarClienteUsecase = adicionarClienteUsecase;
+        this.buscarClientePorCpfUsecase = buscarClientePorCpfUsecase;
+        this.buscarTodosClientesUsecase = buscarTodosClientesUsecase;
     }
 
     @PostMapping
     public ResponseEntity<ClienteResponse> adicionarCliente(@RequestBody ClienteRequest request){
         Cliente clienteRequest = modelMapper.map(request, Cliente.class);
-        ClienteResponse response = modelMapper.map(adicionarClienteInterector.criarCliente(clienteRequest), ClienteResponse.class);
+        ClienteResponse response = modelMapper.map(adicionarClienteUsecase.criarCliente(clienteRequest), ClienteResponse.class);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
@@ -44,12 +44,12 @@ public class ClienteController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteResponse> buscarClientePorCpf(@PathVariable String cpf){
-        Cliente cliente = buscarClientePorCpfInterector.buscarClientePorCpf(cpf);
+        Cliente cliente = buscarClientePorCpfUsecase.buscarClientePorCpf(cpf);
         return ResponseEntity.ok().body(modelMapper.map(cliente, ClienteResponse.class));
     }
     @GetMapping("/")
     public ResponseEntity<List<Cliente>> buscarTodos(){
-        List<Cliente> clientes = buscarTodosClientesInterector.buscarTodosClientes();
+        List<Cliente> clientes = buscarTodosClientesUsecase.buscarTodosClientes();
         return ResponseEntity.ok().body(clientes);
     }
 

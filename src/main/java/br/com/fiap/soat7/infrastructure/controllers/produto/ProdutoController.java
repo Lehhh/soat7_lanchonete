@@ -1,9 +1,9 @@
 package br.com.fiap.soat7.infrastructure.controllers.produto;
 
-import br.com.fiap.soat7.application.usecases.produto.AdicionarProdutoInterector;
-import br.com.fiap.soat7.application.usecases.produto.ConsultarProdutoCategoriaInterector;
-import br.com.fiap.soat7.application.usecases.produto.EditarProdutoInterector;
-import br.com.fiap.soat7.application.usecases.produto.ExcluirProdutoInterector;
+import br.com.fiap.soat7.application.usecases.produto.AdicionarProdutoUsecase;
+import br.com.fiap.soat7.application.usecases.produto.ConsultarProdutoCategoriaUsecase;
+import br.com.fiap.soat7.application.usecases.produto.EditarProdutoUsecase;
+import br.com.fiap.soat7.application.usecases.produto.ExcluirProdutoUsecase;
 import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.infrastructure.controllers.produto.request.CategoriaRequest;
@@ -22,31 +22,31 @@ import java.util.List;
 @RequestMapping("/rest/api/v1/produtos")
 public class ProdutoController {
 
-    private final AdicionarProdutoInterector adicionarProdutoInterector;
+    private final AdicionarProdutoUsecase adicionarProdutoUsecase;
 
-    private final ConsultarProdutoCategoriaInterector consultarProdutoCategoriaInterector;
+    private final ConsultarProdutoCategoriaUsecase consultarProdutoCategoriaUsecase;
 
-    private final ExcluirProdutoInterector excluirProdutoInterector;
+    private final ExcluirProdutoUsecase excluirProdutoUsecase;
 
-    private final EditarProdutoInterector editarProdutoInterector;
+    private final EditarProdutoUsecase editarProdutoUsecase;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public ProdutoController(AdicionarProdutoInterector adicionarProdutoInterector,
-                             ConsultarProdutoCategoriaInterector consultarProdutoCategoriaInterector,
-                             ExcluirProdutoInterector excluirProdutoInterector,
-                             EditarProdutoInterector editarProdutoInterector) {
-        this.adicionarProdutoInterector = adicionarProdutoInterector;
-        this.consultarProdutoCategoriaInterector = consultarProdutoCategoriaInterector;
-        this.excluirProdutoInterector = excluirProdutoInterector;
-        this.editarProdutoInterector = editarProdutoInterector;
+    public ProdutoController(AdicionarProdutoUsecase adicionarProdutoUsecase,
+                             ConsultarProdutoCategoriaUsecase consultarProdutoCategoriaUsecase,
+                             ExcluirProdutoUsecase excluirProdutoUsecase,
+                             EditarProdutoUsecase editarProdutoUsecase) {
+        this.adicionarProdutoUsecase = adicionarProdutoUsecase;
+        this.consultarProdutoCategoriaUsecase = consultarProdutoCategoriaUsecase;
+        this.excluirProdutoUsecase = excluirProdutoUsecase;
+        this.editarProdutoUsecase = editarProdutoUsecase;
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponse> atualizar(@PathVariable Long id, @RequestBody ProdutoRequest request) throws Exception {
         Produto produtoRequest = modelMapper.map(request, Produto.class);
-        Produto retorno = editarProdutoInterector.editarProduto(id,produtoRequest);
+        Produto retorno = editarProdutoUsecase.editarProduto(id,produtoRequest);
         ProdutoResponse response = modelMapper.map(retorno, ProdutoResponse.class);
         return ResponseEntity.ok(response);
     }
@@ -54,7 +54,7 @@ public class ProdutoController {
     @PostMapping
     public ResponseEntity<ProdutoResponse> adicionarProduto(@RequestBody ProdutoRequest request){
         Produto produtoRequest = modelMapper.map(request, Produto.class);
-        Produto retorno = adicionarProdutoInterector.adicionarProduto(produtoRequest);
+        Produto retorno = adicionarProdutoUsecase.adicionarProduto(produtoRequest);
         ProdutoResponse response = modelMapper.map(retorno, ProdutoResponse.class);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
@@ -63,14 +63,14 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) throws Exception {
-        excluirProdutoInterector.excluir(id);
+        excluirProdutoUsecase.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable CategoriaRequest request) throws Exception {
         Categoria categoria = modelMapper.map(request, Produto.class).getCategoria();
-        List<Produto> produtos = consultarProdutoCategoriaInterector.consultarPorCategoria(categoria);
+        List<Produto> produtos = consultarProdutoCategoriaUsecase.consultarPorCategoria(categoria);
         return ResponseEntity.ok(produtos);
     }
 

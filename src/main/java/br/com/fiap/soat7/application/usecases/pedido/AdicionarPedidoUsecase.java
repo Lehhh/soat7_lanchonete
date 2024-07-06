@@ -6,12 +6,12 @@ import br.com.fiap.soat7.domain.types.StatusPedido;
 
 import java.util.Date;
 
-public class AdicionarPedidoInterector {
+public class AdicionarPedidoUsecase {
 
     private PedidoGateway pedidoGateway;
 
 
-    public AdicionarPedidoInterector(PedidoGateway pedidoGateway) {
+    public AdicionarPedidoUsecase(PedidoGateway pedidoGateway) {
         this.pedidoGateway = pedidoGateway;
     }
 

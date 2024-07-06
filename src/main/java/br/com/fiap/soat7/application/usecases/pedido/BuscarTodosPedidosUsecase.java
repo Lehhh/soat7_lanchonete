@@ -5,12 +5,12 @@ import br.com.fiap.soat7.domain.entity.Pedido;
 
 import java.util.List;
 
-public class BuscarTodosPedidosInterector {
+public class BuscarTodosPedidosUsecase {
 
     private PedidoGateway pedidoGateway;
 
 
-    public BuscarTodosPedidosInterector(PedidoGateway pedidoGateway) {
+    public BuscarTodosPedidosUsecase(PedidoGateway pedidoGateway) {
         this.pedidoGateway = pedidoGateway;
     }
 
