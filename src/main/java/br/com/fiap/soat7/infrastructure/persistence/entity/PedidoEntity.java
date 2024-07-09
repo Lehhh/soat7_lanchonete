@@ -1,6 +1,7 @@
 package br.com.fiap.soat7.infrastructure.persistence.entity;
 
 import br.com.fiap.soat7.domain.entity.Pedido;
+import br.com.fiap.soat7.domain.types.StatusPagamento;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,9 @@ public class PedidoEntity {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento statusPagamento;
+
     @ManyToMany
     @JoinTable(
             name = "PedidoProduto",
@@ -40,9 +44,10 @@ public class PedidoEntity {
         this.status = pedido.getStatus();
         this.produtoList = pedido.getIdProdutoList().stream().map(ProdutoEntity::new).toList();
         this.observacao = pedido.getObservacao();
+        this.statusPagamento = pedido.getStatusPagamento();
     }
 
     public Pedido toPedido () {
-        return new Pedido(this.id, this.cpf, this.dataCadastro, this.status, this.produtoList, this.observacao );
+        return new Pedido(this.id, this.cpf, this.dataCadastro, this.status, this.produtoList, this.observacao, this.statusPagamento );
     }
 }

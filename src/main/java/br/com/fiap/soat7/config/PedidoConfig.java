@@ -36,7 +36,13 @@ public class PedidoConfig {
     }
 
     @Bean
+    ConsultarStatusPagamentoPedidoUsecase consultarStatusPagamentoPedidoUsecase(PedidoGateway pedidoGateway) {
+        return new ConsultarStatusPagamentoPedidoUsecase(pedidoGateway);
+    }
+
+    @Bean
     PedidoGateway pedidoGateway(PedidoRepository pedidoRepository) {
         return new PedidoRepositoryGateway(pedidoRepository);
     }
+
 }

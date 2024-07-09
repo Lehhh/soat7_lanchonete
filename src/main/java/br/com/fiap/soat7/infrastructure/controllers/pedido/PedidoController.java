@@ -1,13 +1,17 @@
 package br.com.fiap.soat7.infrastructure.controllers.pedido;
 
 import br.com.fiap.soat7.application.usecases.pedido.*;
+import br.com.fiap.soat7.domain.entity.Cliente;
 import br.com.fiap.soat7.domain.entity.Pedido;
 
 import java.util.List;
 
+import br.com.fiap.soat7.infrastructure.controllers.cliente.response.ClienteResponse;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.request.PedidoRequest;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoResponse;
+import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoStatusPagamentoResponse;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +28,9 @@ public class PedidoController {
     private final FinalizarPedidoUsecase finalizarPedidoUsecase;
 
     private final BuscarTodosPedidosUsecase buscarTodosPedidosUsecase;
-    @Autowired
+
+    private final ConsultarStatusPagamentoPedidoUsecase consultarStatusPagamentoPedidoUsecase;
+
     private ModelMapper modelMapper;
 
 
@@ -32,12 +38,17 @@ public class PedidoController {
                             MarcarPedidoProntoUsecase marcarPedidoProntoUsecase,
                             PrepararPedidoUsecase prepararPedidoUsecase,
                             FinalizarPedidoUsecase finalizarPedidoUsecase,
-                            BuscarTodosPedidosUsecase buscarTodosPedidosUsecase) {
+                            BuscarTodosPedidosUsecase buscarTodosPedidosUsecase,
+                            ModelMapper modelMapper,
+                            ConsultarStatusPagamentoPedidoUsecase consultarStatusPagamentoPedidoUsecase) {
         this.adicionarPedidoUsecase = adicionarPedidoUsecase;
         this.marcarPedidoProntoUsecase = marcarPedidoProntoUsecase;
         this.prepararPedidoUsecase = prepararPedidoUsecase;
         this.finalizarPedidoUsecase = finalizarPedidoUsecase;
         this.buscarTodosPedidosUsecase = buscarTodosPedidosUsecase;
+        this.consultarStatusPagamentoPedidoUsecase = consultarStatusPagamentoPedidoUsecase;
+        this.modelMapper = modelMapper;
+        setupModelMapper(this.modelMapper);
     }
 
     @PostMapping
@@ -71,6 +82,20 @@ public class PedidoController {
     @GetMapping("/")
     public ResponseEntity<List<Pedido>> buscarPedidos(){
         return ResponseEntity.ok().body(buscarTodosPedidosUsecase.buscarPedidos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PedidoResponse> consultarStatusPagamentoPedido(@PathVariable Long id){
+        Pedido pedido = consultarStatusPagamentoPedidoUsecase.consultarStatusPagamentoPedido(id);
+        return ResponseEntity.ok().body(modelMapper.map(pedido, PedidoResponse.class));
+    }
+
+    private void setupModelMapper(ModelMapper modelMapper) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        modelMapper.typeMap(PedidoRequest.class, Pedido.class).addMappings(mapper ->
+                mapper.map(PedidoRequest::getIdProdutoList, Pedido::setIdProdutoList)
+        );
     }
 
 }

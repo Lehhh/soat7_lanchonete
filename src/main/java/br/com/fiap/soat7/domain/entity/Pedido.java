@@ -1,5 +1,6 @@
 package br.com.fiap.soat7.domain.entity;
 
+import br.com.fiap.soat7.domain.types.StatusPagamento;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import br.com.fiap.soat7.infrastructure.persistence.entity.ProdutoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,15 +22,18 @@ public class Pedido {
     private List<Produto> idProdutoList;
     private String observacao;
 
+    private StatusPagamento statusPagamento;
+
     public Pedido() {
     }
 
-    public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<ProdutoEntity> idProdutoList, String observacao) {
+    public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<ProdutoEntity> idProdutoList, String observacao, StatusPagamento statusPagamento) {
         this.id = id;
         this.cpf = cpf;
         this.dataCadastro = dataCadastro;
         this.status = status;
         this.idProdutoList = idProdutoList.stream().map(Produto::new).toList();
         this.observacao = observacao;
+        this.statusPagamento = statusPagamento;
     }
 }
