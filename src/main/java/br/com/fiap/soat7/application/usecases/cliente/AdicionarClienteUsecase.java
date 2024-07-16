@@ -5,7 +5,7 @@ import br.com.fiap.soat7.domain.entity.Cliente;
 
 public class AdicionarClienteUsecase {
 
-    private ClienteGateway clienteGateway;
+    private final ClienteGateway clienteGateway;
 
 
     public AdicionarClienteUsecase(ClienteGateway clienteGateway) {

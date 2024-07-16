@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: "postgres:12"
+    image: "postgres:12.18-alpine3.19"
     restart: always
     networks:
       - lanchonete
@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
     ports:
-      - 5432:5432
+      - "5432:5432"
   webapp:
     build: .
     restart: always
@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - POSTGRES_DB=$POSTGRES_DB
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - db
     links:

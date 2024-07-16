@@ -4,12 +4,10 @@ import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.infrastructure.persistence.entity.ProdutoEntity;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 
 @Component
@@ -27,9 +25,7 @@ public class ProdutoRepository  {
 
         try {
             ProdutoEntity produtoSalvo = this.repository.save(produtoEntity);
-            if(Objects.nonNull(produtoSalvo)) {
-                produto.setId(produtoSalvo.getId());
-            }
+            produto.setId(produtoSalvo.getId());
             return produto;
         } catch (Exception e) {
             String message = "Erro ao salvar os valores informados. Verifique as valores enviados.";
@@ -40,33 +36,22 @@ public class ProdutoRepository  {
         }
     }
 
-    public void delete(Long id) throws Exception {
-        try {
-            repository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new Exception("O produto não foi encontrado");
-        }
-
+    public void delete(Long id) {
+        this.buscarPeloId(id);
+        repository.deleteById(id);
     }
 
-    public void atualizar(Long id, Produto produto) throws Exception {
+    public Produto atualizar(Long id, Produto produto) {
         Produto produtoSalvo = buscarPeloId(id);
         ProdutoEntity produtoEntity = new ProdutoEntity(produtoSalvo);
-        if(Objects.nonNull(produtoEntity)) {
-            produtoEntity.atualizar(produto);
-        }
-        this.repository.save(produtoEntity);
+        produtoEntity.atualizar(produto);
+        return this.repository.save(produtoEntity).toProduto();
     }
 
-    public Produto buscarPeloId(Long id) throws Exception {
-        Optional<ProdutoEntity> produto = repository.findById(id);
-
-        if(Objects.isNull(produto.get())) {
-
-            throw new Exception("Nenhum produto foi encontrado");
-        }
-
-        return produto.get().toProduto();
+    public Produto buscarPeloId(Long id) {
+        return repository.findById(id)
+                .map(ProdutoEntity::toProduto)
+                .orElseThrow(() -> new NoSuchElementException(String.format("O Produto [%s] não foi encontrado.", id)));
     }
 
     public List<Produto> consultarPorCategoria(Categoria categoria) {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BuscarTodosClientesUsecase {
 
-    private ClienteGateway clienteGateway;
+    private final ClienteGateway clienteGateway;
 
     public BuscarTodosClientesUsecase(ClienteGateway clienteGateway) {
         this.clienteGateway = clienteGateway;

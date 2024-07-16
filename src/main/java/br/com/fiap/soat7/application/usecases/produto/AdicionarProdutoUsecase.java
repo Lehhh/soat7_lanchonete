@@ -5,8 +5,7 @@ import br.com.fiap.soat7.domain.entity.Produto;
 
 public class AdicionarProdutoUsecase {
 
-    private ProdutoGateway produtoGateway;
-
+    private final ProdutoGateway produtoGateway;
 
     public AdicionarProdutoUsecase(ProdutoGateway produtoGateway) {
         this.produtoGateway = produtoGateway;

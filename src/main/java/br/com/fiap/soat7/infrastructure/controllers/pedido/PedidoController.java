@@ -1,20 +1,15 @@
 package br.com.fiap.soat7.infrastructure.controllers.pedido;
 
 import br.com.fiap.soat7.application.usecases.pedido.*;
-import br.com.fiap.soat7.domain.entity.Cliente;
 import br.com.fiap.soat7.domain.entity.Pedido;
-
-import java.util.List;
-
-import br.com.fiap.soat7.infrastructure.controllers.cliente.response.ClienteResponse;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.request.PedidoRequest;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoResponse;
-import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoStatusPagamentoResponse;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/v1/pedidos")
@@ -31,7 +26,7 @@ public class PedidoController {
 
     private final ConsultarStatusPagamentoPedidoUsecase consultarStatusPagamentoPedidoUsecase;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
 
     public PedidoController(AdicionarPedidoUsecase adicionarPedidoUsecase,

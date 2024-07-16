@@ -10,7 +10,6 @@ import br.com.fiap.soat7.infrastructure.controllers.produto.request.CategoriaReq
 import br.com.fiap.soat7.infrastructure.controllers.produto.request.ProdutoRequest;
 import br.com.fiap.soat7.infrastructure.controllers.produto.response.ProdutoResponse;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,21 +29,21 @@ public class ProdutoController {
 
     private final EditarProdutoUsecase editarProdutoUsecase;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public ProdutoController(AdicionarProdutoUsecase adicionarProdutoUsecase,
                              ConsultarProdutoCategoriaUsecase consultarProdutoCategoriaUsecase,
                              ExcluirProdutoUsecase excluirProdutoUsecase,
-                             EditarProdutoUsecase editarProdutoUsecase) {
+                             EditarProdutoUsecase editarProdutoUsecase, ModelMapper modelMapper) {
         this.adicionarProdutoUsecase = adicionarProdutoUsecase;
         this.consultarProdutoCategoriaUsecase = consultarProdutoCategoriaUsecase;
         this.excluirProdutoUsecase = excluirProdutoUsecase;
         this.editarProdutoUsecase = editarProdutoUsecase;
+        this.modelMapper = modelMapper;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> atualizar(@PathVariable Long id, @RequestBody ProdutoRequest request) throws Exception {
+    public ResponseEntity<ProdutoResponse> atualizar(@PathVariable Long id, @RequestBody ProdutoRequest request)  {
         Produto produtoRequest = modelMapper.map(request, Produto.class);
         Produto retorno = editarProdutoUsecase.editarProduto(id,produtoRequest);
         ProdutoResponse response = modelMapper.map(retorno, ProdutoResponse.class);
@@ -62,15 +61,15 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         excluirProdutoUsecase.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/categoria/{categoria}")
-    public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable CategoriaRequest request) throws Exception {
-        Categoria categoria = modelMapper.map(request, Produto.class).getCategoria();
-        List<Produto> produtos = consultarProdutoCategoriaUsecase.consultarPorCategoria(categoria);
+    @GetMapping("/categoria/{categoriaRequest}")
+    public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable CategoriaRequest categoriaRequest) {
+        List<Produto> produtos =
+                consultarProdutoCategoriaUsecase.consultarPorCategoria(Categoria.valueOf(categoriaRequest.name()));
         return ResponseEntity.ok(produtos);
     }
 

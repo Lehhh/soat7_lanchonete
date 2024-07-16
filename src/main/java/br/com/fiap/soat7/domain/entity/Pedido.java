@@ -5,6 +5,7 @@ import br.com.fiap.soat7.domain.types.StatusPedido;
 import br.com.fiap.soat7.infrastructure.persistence.entity.ProdutoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Pedido {
 
     private Long id;
@@ -23,9 +25,6 @@ public class Pedido {
     private String observacao;
 
     private StatusPagamento statusPagamento;
-
-    public Pedido() {
-    }
 
     public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<ProdutoEntity> idProdutoList, String observacao, StatusPagamento statusPagamento) {
         this.id = id;

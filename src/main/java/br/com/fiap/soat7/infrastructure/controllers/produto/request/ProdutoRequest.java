@@ -1,7 +1,6 @@
 package br.com.fiap.soat7.infrastructure.controllers.produto.request;
 
 import br.com.fiap.soat7.domain.types.Categoria;
-import br.com.fiap.soat7.infrastructure.persistence.entity.ProdutoEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

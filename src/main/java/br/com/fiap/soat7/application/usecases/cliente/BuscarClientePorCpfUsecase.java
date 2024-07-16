@@ -5,7 +5,7 @@ import br.com.fiap.soat7.domain.entity.Cliente;
 
 public class BuscarClientePorCpfUsecase {
 
-    private ClienteGateway clienteGateway;
+    private final ClienteGateway clienteGateway;
 
     public BuscarClientePorCpfUsecase(ClienteGateway clienteGateway) {
         this.clienteGateway = clienteGateway;

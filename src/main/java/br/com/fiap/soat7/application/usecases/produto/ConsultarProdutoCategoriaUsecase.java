@@ -8,14 +8,13 @@ import java.util.List;
 
 public class ConsultarProdutoCategoriaUsecase {
 
-    private ProdutoGateway produtoGateway;
-
+    private final ProdutoGateway produtoGateway;
 
     public ConsultarProdutoCategoriaUsecase(ProdutoGateway produtoGateway) {
         this.produtoGateway = produtoGateway;
     }
 
-    public List<Produto> consultarPorCategoria(Categoria categoria) throws Exception {
+    public List<Produto> consultarPorCategoria(Categoria categoria) {
         return produtoGateway.consultarPorCategoria(categoria);
     }
 }

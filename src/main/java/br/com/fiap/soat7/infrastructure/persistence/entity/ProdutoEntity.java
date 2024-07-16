@@ -4,6 +4,7 @@ import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.domain.entity.Produto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = {"nome", "categoria"})})
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SequenceProdutoId")
@@ -23,12 +25,6 @@ public class ProdutoEntity {
     private Categoria categoria;
     private String descricao;
     private String imagem;
-
-    public ProdutoEntity() {}
-
-    public ProdutoEntity(Long id) {
-        this.id = id;
-    }
 
     public void atualizar(Produto produto) {
         this.nome = produto.getNome();

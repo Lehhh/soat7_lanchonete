@@ -5,6 +5,7 @@ import br.com.fiap.soat7.domain.types.StatusPagamento;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 @Table(name = "Pedido")
 @Getter
 @Setter
+@NoArgsConstructor
 public class PedidoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -34,8 +36,6 @@ public class PedidoEntity {
             inverseJoinColumns = @JoinColumn(name = "produto_id"))
     private List<ProdutoEntity> produtoList;
     private String observacao;
-
-    public PedidoEntity() {}
 
     public PedidoEntity(Pedido pedido) {
         this.id = pedido.getId();

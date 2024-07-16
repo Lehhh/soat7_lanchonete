@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class BuscarTodosPedidosUsecase {
 
-    private PedidoGateway pedidoGateway;
+    private final PedidoGateway pedidoGateway;
 
 
     public BuscarTodosPedidosUsecase(PedidoGateway pedidoGateway) {

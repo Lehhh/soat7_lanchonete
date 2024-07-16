@@ -5,14 +5,13 @@ import br.com.fiap.soat7.domain.entity.Produto;
 
 public class EditarProdutoUsecase {
 
-    private ProdutoGateway produtoGateway;
-
+    private final ProdutoGateway produtoGateway;
 
     public EditarProdutoUsecase(ProdutoGateway produtoGateway) {
         this.produtoGateway = produtoGateway;
     }
 
-    public Produto editarProduto(Long id,Produto produto) throws Exception {
+    public Produto editarProduto(Long id,Produto produto) {
         return produtoGateway.editarProduto(id,produto);
     }
 }

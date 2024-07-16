@@ -8,6 +8,7 @@ public interface ClienteGateway {
 
     Cliente createCliente(Cliente cliente);
 
-    Cliente findByCpf (String cpf);
+    Cliente findByCpf(String cpf);
+
     List<Cliente> findAll();
 }

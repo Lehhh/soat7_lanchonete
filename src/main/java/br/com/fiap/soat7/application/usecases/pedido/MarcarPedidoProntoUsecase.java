@@ -6,7 +6,7 @@ import br.com.fiap.soat7.domain.types.StatusPedido;
 
 public class MarcarPedidoProntoUsecase {
 
-    private PedidoGateway pedidoGateway;
+    private final PedidoGateway pedidoGateway;
 
 
     public MarcarPedidoProntoUsecase(PedidoGateway pedidoGateway) {

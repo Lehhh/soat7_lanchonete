@@ -13,15 +13,15 @@ import java.util.NoSuchElementException;
 @Component
 public class PedidoRepository {
 
-    private final IPedidoRepository pedidoRepository;
+    private final IPedidoRepository repository;
 
-    public PedidoRepository(IPedidoRepository pedidoRepository) {
-        this.pedidoRepository = pedidoRepository;
+    public PedidoRepository(IPedidoRepository repository) {
+        this.repository = repository;
     }
 
     public Pedido save(Pedido pedido) {
         try {
-            PedidoEntity savedPedidoEntity = this.pedidoRepository.save(new PedidoEntity(pedido));
+            PedidoEntity savedPedidoEntity = this.repository.save(new PedidoEntity(pedido));
             return savedPedidoEntity.toPedido();
         } catch (Exception e) {
             String message = "Erro ao salvar os valores informados. Verifique as valores informados.";
@@ -33,14 +33,14 @@ public class PedidoRepository {
     }
 
     public Pedido findById(Long id) {
-        PedidoEntity pedidoEntity = pedidoRepository.findById(id).orElseThrow(() -> {
-            String errorMessage = "Pedido de id " + id + " nao encontrado!";
+        PedidoEntity pedidoEntity = repository.findById(id).orElseThrow(() -> {
+            String errorMessage = String.format("O Pedido [%s] não foi encontrado.", id);
             return new NoSuchElementException(errorMessage);
         });
         return pedidoEntity.toPedido();
     }
 
     public List<Pedido> findAll(){
-        return this.pedidoRepository.findAll().stream().map(PedidoEntity::toPedido).toList();
+        return this.repository.findAll().stream().map(PedidoEntity::toPedido).toList();
     }
 }

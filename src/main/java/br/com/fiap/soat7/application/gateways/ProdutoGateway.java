@@ -9,9 +9,9 @@ public interface ProdutoGateway {
 
     Produto adicionarProduto (Produto produto);
 
-    Produto editarProduto (Long id, Produto produto) throws Exception;
+    Produto editarProduto (Long id, Produto produto);
 
-    void excluir (Long id) throws Exception;
+    void excluir (Long id);
 
     List<Produto> consultarPorCategoria(Categoria categoria);
 }

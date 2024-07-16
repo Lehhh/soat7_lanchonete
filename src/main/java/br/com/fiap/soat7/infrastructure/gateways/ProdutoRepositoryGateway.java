@@ -4,15 +4,10 @@ import br.com.fiap.soat7.application.gateways.ProdutoGateway;
 import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.domain.types.Categoria;
 import br.com.fiap.soat7.infrastructure.persistence.ProdutoRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ProdutoRepositoryGateway implements ProdutoGateway {
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     private final ProdutoRepository repository;
 
@@ -27,13 +22,12 @@ public class ProdutoRepositoryGateway implements ProdutoGateway {
     }
 
     @Override
-    public Produto editarProduto(Long id, Produto produto) throws Exception {
-        produto.setId(id);
-        return this.repository.save(produto);
+    public Produto editarProduto(Long id, Produto produto) {
+        return this.repository.atualizar(id,produto);
     }
 
     @Override
-    public void excluir(Long id) throws Exception {
+    public void excluir(Long id) {
         repository.delete(id);
     }
 
