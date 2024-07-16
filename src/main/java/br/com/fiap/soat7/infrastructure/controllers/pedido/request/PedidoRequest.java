@@ -1,6 +1,5 @@
 package br.com.fiap.soat7.infrastructure.controllers.pedido.request;
 
-import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.domain.types.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -23,8 +22,8 @@ public class PedidoRequest {
     private Date dataCadastro;
     @JsonIgnore
     private StatusPedido status;
-    @JsonDeserialize(contentAs = Produto.class)
-    private List<Produto> idProdutoList;
+    @JsonDeserialize(contentAs = Long.class)
+    private List<Long> idProdutoList;
     @Schema(example = "Observações do seu pedido")
     private String observacao;
 }

@@ -2,6 +2,7 @@ package br.com.fiap.soat7.infrastructure.controllers.pedido;
 
 import br.com.fiap.soat7.application.usecases.pedido.*;
 import br.com.fiap.soat7.domain.entity.Pedido;
+import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.request.PedidoRequest;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoResponse;
 import org.modelmapper.ModelMapper;
@@ -49,6 +50,7 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<PedidoResponse> adicionarPedido(@RequestBody PedidoRequest request) {
         Pedido pedidoRequest = modelMapper.map(request, Pedido.class);
+        pedidoRequest.setIdProdutoList(request.getIdProdutoList().stream().map(Produto::new).toList());
         PedidoResponse response = modelMapper.map(adicionarPedidoUsecase.criarPedido(pedidoRequest), PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }

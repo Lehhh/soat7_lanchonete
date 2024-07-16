@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = {"nome", "categoria"})})
@@ -25,6 +26,8 @@ public class ProdutoEntity {
     private Categoria categoria;
     private String descricao;
     private String imagem;
+    @ManyToMany(mappedBy = "produtoList")
+    private List<PedidoEntity> pedidos;
 
     public void atualizar(Produto produto) {
         this.nome = produto.getNome();

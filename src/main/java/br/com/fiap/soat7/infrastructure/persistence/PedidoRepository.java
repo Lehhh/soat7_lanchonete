@@ -22,7 +22,7 @@ public class PedidoRepository {
     public Pedido save(Pedido pedido) {
         try {
             PedidoEntity savedPedidoEntity = this.repository.save(new PedidoEntity(pedido));
-            return savedPedidoEntity.toPedido();
+            return repository.findByIdWithProduto(savedPedidoEntity.getId()).get().toPedido();
         } catch (Exception e) {
             String message = "Erro ao salvar os valores informados. Verifique as valores informados.";
             if (e.getMessage().contains("Referential integrity constraint violation")){

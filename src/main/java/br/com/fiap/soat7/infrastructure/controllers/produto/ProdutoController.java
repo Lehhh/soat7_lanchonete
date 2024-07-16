@@ -66,10 +66,10 @@ public class ProdutoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/categoria/{categoriaRequest}")
-    public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable CategoriaRequest categoriaRequest) {
+     @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable CategoriaRequest categoria) {
         List<Produto> produtos =
-                consultarProdutoCategoriaUsecase.consultarPorCategoria(Categoria.valueOf(categoriaRequest.name()));
+                consultarProdutoCategoriaUsecase.consultarPorCategoria(Categoria.valueOf(categoria.name()));
         return ResponseEntity.ok(produtos);
     }
 
