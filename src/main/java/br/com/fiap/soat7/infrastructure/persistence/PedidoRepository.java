@@ -22,7 +22,7 @@ public class PedidoRepository {
     public Pedido save(Pedido pedido) {
         try {
             PedidoEntity savedPedidoEntity = this.repository.save(new PedidoEntity(pedido));
-            return repository.findByIdWithProduto(savedPedidoEntity.getId()).get().toPedido();
+            return savedPedidoEntity.toPedido();
         } catch (Exception e) {
             String message = "Erro ao salvar os valores informados. Verifique as valores informados.";
             if (e.getMessage().contains("Referential integrity constraint violation")){
@@ -41,6 +41,6 @@ public class PedidoRepository {
     }
 
     public List<Pedido> findAll(){
-        return this.repository.findAll().stream().map(PedidoEntity::toPedido).toList();
+        return this.repository.findNotFinalizedAndOrdered().stream().map(PedidoEntity::toPedido).toList();
     }
 }
