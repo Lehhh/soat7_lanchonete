@@ -41,7 +41,7 @@ public class PedidoConfig {
     }
 
     @Bean
-    ConfirmarPagamentoPedidoUsecase confirmarPagamentoPedidoUsecase(PedidoGateway pedidoGateway) {
+    ConfirmarPagamentoPedidoUsecase confirmarPagamentoPedidoUseCase(PedidoGateway pedidoGateway) {
         return new ConfirmarPagamentoPedidoUsecase(pedidoGateway);
     }
 

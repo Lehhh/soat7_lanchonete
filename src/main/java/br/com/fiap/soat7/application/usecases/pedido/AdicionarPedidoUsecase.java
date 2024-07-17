@@ -19,8 +19,8 @@ public class AdicionarPedidoUsecase {
 
     public Pedido criarPedido(Pedido pedido) {
         pedido.setDataCadastro(new Date());
+         pedido.setStatus(StatusPedido.RECEBIDO);
         pedido.setStatusPagamento(StatusPagamento.AGUARDANDO_PAGAMENTO);
-        pedido.setStatus(StatusPedido.RECEBIDO);
         return pedidoGateway.adicionarPedido(pedido);
     }
 }
