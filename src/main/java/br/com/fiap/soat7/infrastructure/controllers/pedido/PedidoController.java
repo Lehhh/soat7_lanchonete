@@ -5,6 +5,8 @@ import br.com.fiap.soat7.domain.entity.Pedido;
 import br.com.fiap.soat7.domain.entity.Produto;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.request.PedidoRequest;
 import br.com.fiap.soat7.infrastructure.controllers.pedido.response.PedidoResponse;
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,6 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<PedidoResponse> adicionarPedido(@RequestBody PedidoRequest request) {
         Pedido pedidoRequest = modelMapper.map(request, Pedido.class);
-        pedidoRequest.setIdProdutoList(request.getIdProdutoList().stream().map(Produto::new).toList());
         PedidoResponse response = modelMapper.map(adicionarPedidoUsecase.criarPedido(pedidoRequest), PedidoResponse.class);
         return ResponseEntity.ok().body(response);
     }
@@ -90,8 +91,13 @@ public class PedidoController {
     private void setupModelMapper(ModelMapper modelMapper) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        Converter<List<Long>, List<Produto>> idToProdutoConverter = new AbstractConverter<>() {
+            protected List<Produto> convert(List<Long> source) {
+                return source.stream().map(Produto::new).toList();
+            }
+        };
         modelMapper.typeMap(PedidoRequest.class, Pedido.class).addMappings(mapper ->
-                mapper.map(PedidoRequest::getIdProdutoList, Pedido::setIdProdutoList)
+                mapper.using(idToProdutoConverter).map(PedidoRequest::getIdProdutoList, Pedido::setProdutoList)
         );
     }
 

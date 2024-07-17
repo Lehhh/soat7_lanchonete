@@ -42,7 +42,7 @@ public class PedidoEntity {
         this.cpf = pedido.getCpf();
         this.dataCadastro = pedido.getDataCadastro();
         this.status = pedido.getStatus();
-        this.produtoList = pedido.getIdProdutoList().stream().map(ProdutoEntity::new).toList();
+        this.produtoList = pedido.getProdutoList().stream().map(ProdutoEntity::new).toList();
         this.observacao = pedido.getObservacao();
         this.statusPagamento = pedido.getStatusPagamento();
     }

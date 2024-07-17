@@ -21,7 +21,7 @@ public class Pedido {
     @Schema(type = "string", pattern = "dd/MM/yyyy HH:mm:ss")
     private Date dataCadastro;
     private StatusPedido status;
-    private List<Produto> idProdutoList;
+    private List<Produto> produtoList;
     private String observacao;
 
     private StatusPagamento statusPagamento;
@@ -30,12 +30,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<ProdutoEntity> idProdutoList, String observacao, StatusPagamento statusPagamento) {
+    public Pedido(Long id, String cpf, Date dataCadastro, StatusPedido status, List<ProdutoEntity> produtoList, String observacao, StatusPagamento statusPagamento) {
         this.id = id;
         this.cpf = cpf;
         this.dataCadastro = dataCadastro;
         this.status = status;
-        this.idProdutoList = idProdutoList.stream().map(Produto::new).toList();
+        this.produtoList = produtoList.stream().map(Produto::new).toList();
         this.observacao = observacao;
         this.statusPagamento = statusPagamento;
     }

@@ -20,6 +20,6 @@ public class PedidoResponse {
     private Date dataCadastro;
     private StatusPedido status;
     private StatusPagamento statusPagamento;
-    private List<Produto> idProdutoList;
+    private List<Produto> produtoList;
     private String observacao;
 }
