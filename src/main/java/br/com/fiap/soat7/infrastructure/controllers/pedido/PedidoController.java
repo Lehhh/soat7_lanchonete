@@ -49,7 +49,7 @@ public class PedidoController {
         setupModelMapper(this.modelMapper);
     }
 
-    @PostMapping
+    @PostMapping("/checkout")
     public ResponseEntity<PedidoResponse> adicionarPedido(@RequestBody PedidoRequest request) {
         Pedido pedidoRequest = modelMapper.map(request, Pedido.class);
         PedidoResponse response = modelMapper.map(adicionarPedidoUsecase.criarPedido(pedidoRequest), PedidoResponse.class);

@@ -2,9 +2,10 @@ package br.com.fiap.soat7.infrastructure.persistence;
 
 import br.com.fiap.soat7.domain.entity.Pedido;
 import br.com.fiap.soat7.infrastructure.persistence.entity.PedidoEntity;
-
+import jakarta.persistence.EntityManager;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,15 +15,20 @@ import java.util.NoSuchElementException;
 public class PedidoRepository {
 
     private final IPedidoRepository repository;
+    private EntityManager entityManager;
 
-    public PedidoRepository(IPedidoRepository repository) {
+    public PedidoRepository(IPedidoRepository repository, EntityManager entityManager) {
         this.repository = repository;
+        this.entityManager = entityManager;
     }
 
+    @Transactional
     public Pedido save(Pedido pedido) {
         try {
             PedidoEntity savedPedidoEntity = this.repository.save(new PedidoEntity(pedido));
-            return savedPedidoEntity.toPedido();
+            entityManager.flush();
+            entityManager.clear();
+            return this.repository.findById(savedPedidoEntity.getId()).get().toPedido();
         } catch (Exception e) {
             String message = "Erro ao salvar os valores informados. Verifique as valores informados.";
             if (e.getMessage().contains("Referential integrity constraint violation")){
