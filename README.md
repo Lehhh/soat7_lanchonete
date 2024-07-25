@@ -60,11 +60,11 @@ kubectl apply -f persistent-volume.yaml
 kubectl apply -f persistent-volume-claim.yaml --namespace soat7-lanchonete
 
 #### CRIAR OS DEPLOYMENTS
-kubectl apply -f deployment-db.yaml --namespace soat7-lanchonete
+kubectl apply -f deployment-db.yaml --namespace soat7-lanchonete<br>
 kubectl apply -f deployment-app.yaml --namespace soat7-lanchonete
 
 #### CRIAR OS SERVICES
-kubectl apply -f service-db.yaml --namespace soat7-lanchonete
+kubectl apply -f service-db.yaml --namespace soat7-lanchonete<br>
 kubectl apply -f service-app.yaml --namespace soat7-lanchonete
 
 
@@ -80,7 +80,8 @@ echo $(minikube ip)'   soat7-tech-ch-2.fiap' | sudo tee -a /etc/hosts
 #### AUMENTAR QUANTIDADE DE REPLICAS PARA 4 DA APP
 kubectl scale --replicas=4 deployment.apps/lanchonete-deployment --namespace soat7-lanchonete
 
-
+#### HABILITAR O MINIKUBE TUNEL
+minikube tunnel
 
 ## ADICIONAIS
 #### PARA ACESSAR O POD DA APP

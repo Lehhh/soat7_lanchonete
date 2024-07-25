@@ -1,4 +1,4 @@
-FROM amazoncorretto:21
+FROM openjdk:21
 
 RUN mkdir /opt/code &&\
     mkdir /opt/app
