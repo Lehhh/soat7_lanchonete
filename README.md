@@ -1,6 +1,6 @@
 ## Descrição
 
-Tech Challenge da Fase 1 do curso Pós-Tech em Arquitetura de Software. Desenvolvimento de sistema de gerenciamento de pedidos para lanchonete em expansão.
+Tech Challenge da Fase 2 do curso Pós-Tech em Arquitetura de Software. Desenvolvimento de sistema de gerenciamento de pedidos para lanchonete em expansão.
 
 ## Infraestrutura
 
@@ -13,98 +13,95 @@ Para a construção da aplicação foram utilizadas as tecnologias:
 
 ![Miro](<kubernetes-lanchonete.jpg>)
 
-### Instalação minikube
-COMO INSTALAR MINIKUBE UBUNTU
-Baixar o instalador
+## Instalação minikube
+
+#### COMO INSTALAR MINIKUBE UBUNTU
+#### Baixar o instalador
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 Efetuar a instalação e remover o binario instalado
 
-COMO INICIAR MINIKUBE
+#### COMO INICIAR MINIKUBE
 minikube start
 
-BAIXANDO A VERSAO DE KUBECTL COMPATIVEL COM O MINIKUBE E HABILITAR PARA USO
+#### BAIXANDO A VERSAO DE KUBECTL COMPATIVEL COM O MINIKUBE E HABILITAR PARA USO
 minikube kubectl -- get po -A
 
-CRIAR ATALHO PARA UTILIZAÇÃO DO KUBECTL DO MINIKUBE
+#### CRIAR ATALHO PARA UTILIZAÇÃO DO KUBECTL DO MINIKUBE
 alias kubectl="minikube kubectl --"
 
-INSTALAR DASHBOARD DO MINIKUBE PARA VISUALIZAÇÃO DO AMBIENTE
+#### INSTALAR DASHBOARD DO MINIKUBE PARA VISUALIZAÇÃO DO AMBIENTE
 nohup minikube dashboard > dashboard.log &
-PARA ACESSAR O DASHBOARD
+
+#### PARA ACESSAR O DASHBOARD
 Ex: http://127.0.0.1:41405/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/
 * validar dentro do dashboard.log a porta de acesso, caso nao abra automaticamente
 
 ### Kubernetes namespace
 
-CRIANDO NAMESPACE
+#### CRIANDO NAMESPACE
 kubectl create namespace soat7-lanchonete
 
 
-CODIFICAR EM BASE64 OS VALORES DA SECRET
+#### CODIFICAR EM BASE64 OS VALORES DA SECRET
 echo -n 'tech' | base64
 echo -n 'postgres' | base64
 echo -n 'root' | base64
 
-CRIANDO SECRET
-
+#### CRIANDO SECRET
 kubectl apply -f secret-db.yaml --namespace soat7-lanchonete
 
-BUILD DE IMAGEM DA APP PARA DENTRO DO REPOSITORIO DO MINIKUBE
-
+#### BUILD DE IMAGEM DA APP PARA DENTRO DO REPOSITORIO DO MINIKUBE
 minikube image build -t lanchonete-soat7:2.0.0 .
 
-CRIANDO PV
-
+#### CRIANDO PV
 kubectl apply -f persistent-volume.yaml
 
-CRIANDO PVC
-
+#### CRIANDO PVC
 kubectl apply -f persistent-volume-claim.yaml --namespace soat7-lanchonete
 
-CRIAR OS DEPLOYMENTS
-
+#### CRIAR OS DEPLOYMENTS
 kubectl apply -f deployment-db.yaml --namespace soat7-lanchonete
 kubectl apply -f deployment-app.yaml --namespace soat7-lanchonete
 
-CRIAR OS SERVICES
-
+#### CRIAR OS SERVICES
 kubectl apply -f service-db.yaml --namespace soat7-lanchonete
 kubectl apply -f service-app.yaml --namespace soat7-lanchonete
 
 
-HABILITAR NGINX NO MINIKUBE
+#### HABILITAR NGINX NO MINIKUBE
 minikube addons enable ingress
 
-
-PARA CRIAR O INGRESS
+#### PARA CRIAR O INGRESS
 kubectl apply -f ingress.yaml --namespace soat7-lanchonete
 
-RECONHECER DOMINIO PELO IP DO MINIKUBE
+#### RECONHECER DOMINIO PELO IP DO MINIKUBE
 echo $(minikube ip)'   soat7-tech-ch-2.fiap' | sudo tee -a /etc/hosts
 
-AUMENTAR QUANTIDADE DE REPLICAS PARA 4 DA APP
+#### AUMENTAR QUANTIDADE DE REPLICAS PARA 4 DA APP
 kubectl scale --replicas=4 deployment.apps/lanchonete-deployment --namespace soat7-lanchonete
 
 
 
-###ADICIONAIS###
-PARA ACESSAR O POD DA APP
+## ADICIONAIS
+#### PARA ACESSAR O POD DA APP
 kubectl exec --stdin --tty $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n soat7-lanchonete | grep lanchonete) --namespace soat7-lanchonete -- /bin/bash
 
-PARA ACESSAR O POD DO BANCO
+#### PARA ACESSAR O POD DO BANCO
 kubectl exec --stdin --tty $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n soat7-lanchonete | grep db) --namespace soat7-lanchonete -- /bin/bash
 
 
-PARA VER OS LOGS DO POD DA APP
+#### PARA VER OS LOGS DO POD DA APP
 kubectl logs $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n soat7-lanchonete | grep lanchonete) -n soat7-lanchonete
 
-PARA VER OS LOGS DO BANCO
+#### PARA VER OS LOGS DO BANCO
 kubectl logs $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n soat7-lanchonete | grep db) -n soat7-lanchonete
 
 
-DESCOBRIR IP ATUAL DO CLUSTER DO MINKUBE
+#### DESCOBRIR IP ATUAL DO CLUSTER DO MINKUBE
 
 minikube ip
+
+---- 
 
 ## Documentação do Sistema (DDD)
 
