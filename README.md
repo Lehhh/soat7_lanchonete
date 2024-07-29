@@ -2,6 +2,14 @@
 
 Tech Challenge da Fase 2 do curso Pós-Tech em Arquitetura de Software. Desenvolvimento de sistema de gerenciamento de pedidos para lanchonete em expansão.
 
+## Grupo 55
+
+- Darlan Talles de Oliveira Rodrigues - rm354780
+- Isaque Dias Coelho - RM356260
+- Leandro Shiniti Tacara - rm355388
+- Pedro Paulo Dias Bertolini - rm354416
+- Victor Filipe Corteze Caltabiano - rm355868
+
 ## Infraestrutura
 
 Para a construção da aplicação foram utilizadas as tecnologias:
