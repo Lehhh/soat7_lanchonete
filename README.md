@@ -4,11 +4,11 @@ Tech Challenge da Fase 2 do curso Pós-Tech em Arquitetura de Software. Desenvol
 
 ## Grupo 55
 
-- Darlan Talles de Oliveira Rodrigues - rm354780
+- Darlan Talles de Oliveira Rodrigues - RM354780
 - Isaque Dias Coelho - RM356260
-- Leandro Shiniti Tacara - rm355388
-- Pedro Paulo Dias Bertolini - rm354416
-- Victor Filipe Corteze Caltabiano - rm355868
+- Leandro Shiniti Tacara - RM355388
+- Pedro Paulo Dias Bertolini - RM354416
+- Victor Filipe Corteze Caltabiano - RM355868
 
 ## Infraestrutura
 
