@@ -29,8 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         Throwable rootCause = ex.getRootCause();
-        if (rootCause instanceof InvalidFormatException) {
-            InvalidFormatException ife = (InvalidFormatException) rootCause;
+        if (rootCause instanceof InvalidFormatException ife) {
             Class<?> targetType = ife.getTargetType();
             if (targetType.isEnum()) {
                 String message = messageSource.getMessage(INVALID_CATEGORY_VALUE, null, LocaleContextHolder.getLocale());
@@ -52,4 +51,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlerDataIntegrityViolationException(DataIntegrityViolationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
 }
