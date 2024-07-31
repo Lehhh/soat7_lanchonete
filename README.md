@@ -2,6 +2,8 @@
 
 Tech Challenge da Fase 2 do curso Pós-Tech em Arquitetura de Software. Desenvolvimento de sistema de gerenciamento de pedidos para lanchonete em expansão.
 
+Vídeo explicativo da aquitetura do projeto: [https://youtu.be/WHrUoj0jR2U](https://youtu.be/WHrUoj0jR2U)
+
 ## Grupo 55
 
 - Darlan Talles de Oliveira Rodrigues - RM354780
