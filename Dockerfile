@@ -8,6 +8,7 @@ ENV PATH "$M2_HOME/bin:$PATH"
 ARG APP_ENV=$APP_ENV
 ENV APP_ENV=prod
 
+#Start  envs
 RUN echo "$APP_ENV"
 RUN curl https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -o apache-maven-3.9.6-bin.tar.gz &&\
     tar xzvf apache-maven-3.9.6-bin.tar.gz -C /opt/ &&\
