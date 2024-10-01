@@ -53,9 +53,10 @@ kubectl create namespace soat7-lanchonete
 
 
 #### CODIFICAR EM BASE64 OS VALORES DA SECRET
-echo -n 'tech' | base64
-echo -n 'postgres' | base64
+echo -n 'tech' | base64<br>
+echo -n 'postgres' | base64<br>
 echo -n 'root' | base64
+
 
 #### CRIANDO SECRET
 kubectl apply -f secret-db.yaml --namespace soat7-lanchonete
@@ -119,6 +120,11 @@ minikube ip
 Para documenação dos fluxos foi criado um board na Miro onde foi desenhado o fluxo de negócio e disponibilizado o dicionário de linguagem ubiqua.
 
 ![Miro](<ddd.jpg>)
+
+## Documentação do Sistema (DER - Diagrama de Entidade Relacionamento)
+Para banco de dados optamos por utilizar PostgreSQL, e portanto, banco de dados relacional. A escolha se deu Além da afinidade e facilidade de integração com sistema, isso porque acreditamos que seria a tecnologia de armazanamento que mais satisfaria as necessidades do projeto, de dados bem estruturados e consistentes.
+
+![Miro](<der.jpg>)
 
 ## Inicialização da aplicação
 
