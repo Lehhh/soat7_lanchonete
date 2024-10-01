@@ -28,6 +28,7 @@ jobs:
         run: kubectl create namespace soat7-lanchonete
 
       - name: Apply Kubernetes secret
+        working-directory: env/prod
         run: kubectl apply -f secret-db.yaml --namespace soat7-lanchonete
 
       - name: Build Docker image
@@ -47,10 +48,13 @@ jobs:
         run: docker push ${{ secrets.ECR_REPOSITORY_URL }}:1.0.1
 
       - name: Apply Kubernetes deployment
+        working-directory: env/prod
         run: kubectl apply -f deployment-app.yaml --namespace soat7-lanchonete
 
       - name: Apply Kubernetes service
+        working-directory: env/prod
         run: kubectl apply -f service-app.yaml --namespace soat7-lanchonete
 
       - name: Apply Kubernetes ingress
+        working-directory: env/prod
         run: kubectl apply -f ingress.yaml --namespace soat7-lanchonete
