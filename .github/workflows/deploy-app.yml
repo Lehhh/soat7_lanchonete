@@ -32,7 +32,7 @@ jobs:
         run: kubectl apply -f secret-db.yaml --namespace soat7-lanchonete
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.ECR_REPOSITORY_URL }} .
+        run: docker build -t ${{ secrets.ECR_REPOSITORY_URL }}:1.0.1 .
 
       - name: Login to Amazon ECR
         run: |
