@@ -58,3 +58,7 @@ jobs:
       - name: Apply Kubernetes ingress
         working-directory: .kube
         run: kubectl apply -f ingress.yaml --namespace soat7-lanchonete
+
+      - name: Apply Kubernetes service RDS
+        working-directory: .kube
+        run: kubectl apply -f service-aws-rds.yaml --namespace soat7-lanchonete
